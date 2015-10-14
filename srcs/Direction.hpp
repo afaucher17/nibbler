@@ -16,6 +16,8 @@ class Direction
 
         Position        toPosition() const;
 
+        std::string     toString() const;
+
     private:
         cardinal_e          _dir;
 };

@@ -19,6 +19,8 @@ class Position
         Position            move(Direction const & dir) const;
         Position            operator+(Position const & rhs) const;
 
+        std::string         toString() const;
+
     private:
         int                 _x;
         int                 _y;

@@ -33,3 +33,18 @@ Position            Direction::toPosition() const
 
     return pos_array[static_cast<int>(this->_dir)];
 }
+
+std::string         Direction::toString() const
+{
+    std::stringstream ss;
+    std::string tab[4] = { "North", "East", "West", "South" };
+
+    ss << "Direction (" << tab[static_cast<int>(this->_dir)] << ")";
+    return ss.str();
+}
+
+std::ostream &      operator<<(std::ostream & o, Direction const & rhs)
+{
+    o << rhs.toString();
+    return o;
+}
