@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/14 14:58:04 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/14 15:30:06 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,14 +35,15 @@ INCDIR			= $(ROOT)/includes
 SFML_LIB_DIR	= $(ROOT)/SFML
 
 # compil flags
-INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include/SFML
+LDFLAGS			= -L $(SFML_LIB_DIR)/lib -Wl,-rpath,$(SFML_LIB_DIR)/extlibs/libs-osx/lib -lsfml-graphics -lsfml-window -lsfml-system
+INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include
 CXXFLAGS		= -Wall -Wextra -Werror
 
 # source files
-SRC		=
+SRC				= test.cpp
 
 # obj
-OBJS	= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
+OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 .PHONY: all clean fclean re
 
@@ -50,11 +51,11 @@ all: $(CMAKE) SFML/CMakeLists.txt $(SFML_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(OK_COLOR)Compiling executable...$(NO_COLOR)"
-	@$(CXX) $(OBJS) -o $(NAME)
+	@$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo "$(OK_COLOR)Compiling objects...$(NO_COLOR)"
-	@$(CXX) $< -o $@ -c $(CXXFLAGS) $(GTKCOMPIL)
+	$(CXX) $< -o $@ -c $(INCFLAGS) $(CXXFLAGS)
 
 $(OBJDIR):
 	@$(MKDIR) $@
