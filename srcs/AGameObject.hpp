@@ -2,22 +2,26 @@
 # define AGAMEOBJECT_HPP
 # include "IGameObject.interface.hpp"
 
+
 class AGameObject: public IGameObject
 {
     public:
+        AGameObject(AGameObject const & src);
+        AGameObject(int x, int y, cardinal_e dir);
+        virtual ~AGameObject(void);
+        AGameObject &           operator=(AGameObject const & rhs);
 
         Position const &        getPosition() const;
         Direction const &       getCurrentDirection() const;
-        Direction const &       getOldDirection() const;
 
-        void                    move() = 0;
-        bool                    isToBeDeleted();
+        virtual void            move() = 0;
+        bool                    isToBeDeleted() const;
+
+        std::string             toString() const;
 
     private:
+        std::string             _typeToString(type_e const type) const;
         AGameObject(void);
-        AGameObject(AGameObject const & src);
-        virtual ~AGameObject(void);
-        AGameObject &           operator=(AGameObject const & rhs);
 
     protected:
         Position                _pos;
