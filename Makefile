@@ -6,32 +6,37 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/12 12:34:42 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/14 14:58:04 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # binaries
-CXX		= /usr/bin/g++
-RM		= /bin/rm
-MAKE	= /usr/bin/make
-MKDIR	= /bin/mkdir
+CXX				= /usr/bin/g++
+RM				= /bin/rm
+MAKE			= /usr/bin/make
+MKDIR			= /bin/mkdir
+GIT				= /usr/bin/git
+CMAKE			= $(HOME)/.brew/bin/cmake
+BREW			= $(HOME)/.brew/bin/brew
 
 # colors
-NO_COLOR=\x1b[0m
-OK_COLOR=\x1b[32;01m
-WARN_COLOR=\x1b[33;01m
+NO_COLOR		= \x1b[0m
+OK_COLOR		= \x1b[32;01m
+WARN_COLOR		= \x1b[33;01m
 
 # app name
-NAME	= nibbler
+NAME			= nibbler
 
 # dir
-ROOT	= $(shell pwd)
-OBJDIR	= $(ROOT)/objs
-SRCDIR	= $(ROOT)/srcs
-INCDIR	= $(ROOT)/includes
+ROOT			= $(shell pwd)
+OBJDIR			= $(ROOT)/objs
+SRCDIR			= $(ROOT)/srcs
+INCDIR			= $(ROOT)/includes
+SFML_LIB_DIR	= $(ROOT)/SFML
 
 # compil flags
-CXXFLAGS = -I $(INCDIR) -Wall -Wextra -Werror
+INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include/SFML
+CXXFLAGS		= -Wall -Wextra -Werror
 
 # source files
 SRC		=
@@ -41,7 +46,7 @@ OBJS	= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 .PHONY: all clean fclean re
 
-all: $(OBJDIR) $(NAME)
+all: $(CMAKE) SFML/CMakeLists.txt $(SFML_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(OK_COLOR)Compiling executable...$(NO_COLOR)"
@@ -49,10 +54,24 @@ $(NAME): $(OBJS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo "$(OK_COLOR)Compiling objects...$(NO_COLOR)"
-	@$(CXX) $< -o $@ -c $(CXXFLAGS)
+	@$(CXX) $< -o $@ -c $(CXXFLAGS) $(GTKCOMPIL)
 
 $(OBJDIR):
 	@$(MKDIR) $@
+
+$(CMAKE):
+	$(BREW) update
+	$(BREW) install cmake
+
+SFML/CMakeLists.txt:
+	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
+	$(GIT) submodule init
+	$(GIT) submodule update
+
+$(SFML_LIB):
+	cd $(SFML_LIB_DIR) && \
+	$(CMAKE) . && \
+	$(MAKE)
 
 clean:
 	@echo "$(WARN_COLOR)"
