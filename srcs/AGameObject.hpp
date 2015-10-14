@@ -21,9 +21,9 @@ class AGameObject: public IGameObject
 
     private:
         std::string             _typeToString(type_e const type) const;
-        AGameObject(void);
 
     protected:
+        AGameObject(void);
         Position                _pos;
         Direction               _dir;
         type_e                  _type;

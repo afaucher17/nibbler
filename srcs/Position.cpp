@@ -47,3 +47,11 @@ Position        Position::operator+(Position const & rhs) const
 {
     return Position(this->_x + rhs._x, this->_y + rhs._y);
 }
+
+std::string     Position::toString() const
+{
+    std::stringstream ss;
+
+    ss << "Position (" << this->_x << "; " << this->_y << ")";
+    return ss.str();
+}

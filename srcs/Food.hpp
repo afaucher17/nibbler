@@ -5,13 +5,16 @@
 class Food : public AGameObject
 {
     public:
-        Food(void);
-        Food(Position const & _pos, Direction const & _dir);
+        Food(int x, int y, cardinal_e dir);
         Food(Food const & src);
         virtual ~Food(void);
         Food &      operator=(Food const & rhs);
 
         void        move() {};
+
+    private:
+        Food(void);
+        type_e      _type;
 
 };
 std::ostream & operator<<(std::ostream & o, Food const & rhs);

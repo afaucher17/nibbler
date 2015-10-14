@@ -1,11 +1,13 @@
 #ifndef SNAKEHEAD_HPP
 # define SNAKEHEAD_HPP
+# include "AGameObject.hpp"
+# include "ISnakeObject.interface.hpp"
 
-class SnakeHead : public ISnakeObject, public IGameObject
+class SnakeHead : public ISnakeObject, public AGameObject
 {
     public:
         SnakeHead(void);
-        SnakeHead(Position const pos, Direction const pos, e_type type);
+        SnakeHead(int x, int y, cardinal_e dir, type_e type);
         SnakeHead(SnakeHead const & src);
         virtual ~SnakeHead(void);
         SnakeHead &    operator=(SnakeHead const & rhs);
@@ -19,6 +21,7 @@ class SnakeHead : public ISnakeObject, public IGameObject
 
     private:
         ISnakeObject *  _previous;
+        type_e          _type;
 };
 
 #endif
