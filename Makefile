@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 17:27:21 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 17:38:18 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,15 +91,14 @@ glfw/CMakeLists.txt:
 $(SFML_LIB):
 	cd $(SFML_LIB_DIR) && \
 	$(CMAKE) . && \
-	$(MAKE)
+	$(MAKE) && \
 	cd ..
 
 $(GLFW_LIB):
 	cd $(GLFW_LIB_DIR) && \
 	$(CMAKE) . && \
-	$(MAKE)
+	$(MAKE) && \
 	cd ..
-
 
 clean:
 	@echo "$(WARN_COLOR)"
