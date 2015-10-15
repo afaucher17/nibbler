@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 14:05:59 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 14:21:16 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 all: $(CMAKE) $(SUBMODULE_INIT) $(SFML_LIB) $(GLFW_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
+	@echo "$(WARN_COLOR)Care! Shell level: $(SHLVL)"
 	@echo "$(OK_COLOR)Compiling executable...$(NO_COLOR)"
 	@$(CXX) $^ -o $@ $(LDFLAGS)
 
@@ -67,7 +68,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@$(CXX) $< -o $@ -c $(INCFLAGS) $(CXXFLAGS)
 
 $(OBJDIR):
-	$(MKDIR) $@
+	@$(MKDIR) $@
+
+$(BREW):
+	/usr/local/bin/brew update
 
 $(CMAKE):
 	$(BREW) update
@@ -87,6 +91,7 @@ $(GLFW_LIB):
 	cd $(GLFW_LIB_DIR) && \
 	$(CMAKE) . && \
 	$(MAKE)
+
 
 clean:
 	@echo "$(WARN_COLOR)"
