@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 17:38:18 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 17:44:06 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SFML_LIB_DIR	= $(ROOT)/SFML
 GLFW_LIB_DIR	= $(ROOT)/glfw
 
 # lib
+SFML_LIB		= $(SFML_LIB_DIR)/lib
 GLFW_LIB		= $(GLFW_LIB_DIR)/src/libglfw3.a
 
 # lib_path
