@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 14:50:56 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 17:27:21 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 .PHONY: all clean fclean re
 
-all: $(CMAKE) $(SUBMODULE_INIT) $(SFML_LIB) $(GLFW_LIB) $(OBJDIR) $(NAME)
+all: $(CMAKE) SFML/CMakeLists.txt glfw/CMakeLists.txt $(SFML_LIB) $(GLFW_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(WARN_COLOR)Care! Shell level: $(SHLVL)"
@@ -78,7 +78,12 @@ $(CMAKE):
 	$(BREW) update
 	$(BREW) install cmake
 
-$(SUBMODULE_INIT):
+SFML/CMakeLists.txt:
+	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
+	$(GIT) submodule init
+	$(GIT) submodule update
+
+glfw/CMakeLists.txt:
 	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
 	$(GIT) submodule init
 	$(GIT) submodule update
@@ -87,11 +92,13 @@ $(SFML_LIB):
 	cd $(SFML_LIB_DIR) && \
 	$(CMAKE) . && \
 	$(MAKE)
+	cd ..
 
 $(GLFW_LIB):
 	cd $(GLFW_LIB_DIR) && \
 	$(CMAKE) . && \
 	$(MAKE)
+	cd ..
 
 
 clean:
