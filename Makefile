@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/14 15:30:06 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 14:05:59 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,19 @@ OBJDIR			= $(ROOT)/objs
 SRCDIR			= $(ROOT)/srcs
 INCDIR			= $(ROOT)/includes
 SFML_LIB_DIR	= $(ROOT)/SFML
+GLFW_LIB_DIR	= $(ROOT)/glfw
+
+# lib
+GLFW_LIB		= $(GLFW_LIB_DIR)/src/libglfw3.a
+
+# lib_path
+SFML_LIB_P		= $(SFML_LIB_DIR)/lib -Wl,-rpath,$(SFML_LIB_DIR)/extlibs/libs-osx/lib -lsfml-graphics -lsfml-window -lsfml-system
+GLFW_LIB_P		= $(GLFW_LIB_DIR)/src -lglfw3 $(GLFW_FRAMEWORK)
+GLFW_FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -framework GLUT
 
 # compil flags
-LDFLAGS			= -L $(SFML_LIB_DIR)/lib -Wl,-rpath,$(SFML_LIB_DIR)/extlibs/libs-osx/lib -lsfml-graphics -lsfml-window -lsfml-system
-INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include
+LDFLAGS			= -L $(GLFW_LIB_P) -L $(SFML_LIB_P)
+INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include -I $(GLFW_LIB_DIR)/include -Wno-deprecated
 CXXFLAGS		= -Wall -Wextra -Werror
 
 # source files
@@ -47,7 +56,7 @@ OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 .PHONY: all clean fclean re
 
-all: $(CMAKE) SFML/CMakeLists.txt $(SFML_LIB) $(OBJDIR) $(NAME)
+all: $(CMAKE) $(SUBMODULE_INIT) $(SFML_LIB) $(GLFW_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(OK_COLOR)Compiling executable...$(NO_COLOR)"
@@ -55,22 +64,27 @@ $(NAME): $(OBJS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@echo "$(OK_COLOR)Compiling objects...$(NO_COLOR)"
-	$(CXX) $< -o $@ -c $(INCFLAGS) $(CXXFLAGS)
+	@$(CXX) $< -o $@ -c $(INCFLAGS) $(CXXFLAGS)
 
 $(OBJDIR):
-	@$(MKDIR) $@
+	$(MKDIR) $@
 
 $(CMAKE):
 	$(BREW) update
 	$(BREW) install cmake
 
-SFML/CMakeLists.txt:
+$(SUBMODULE_INIT):
 	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
 	$(GIT) submodule init
 	$(GIT) submodule update
 
 $(SFML_LIB):
 	cd $(SFML_LIB_DIR) && \
+	$(CMAKE) . && \
+	$(MAKE)
+
+$(GLFW_LIB):
+	cd $(GLFW_LIB_DIR) && \
 	$(CMAKE) . && \
 	$(MAKE)
 
