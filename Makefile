@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 17:44:06 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 19:13:06 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,12 +61,15 @@ OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 all: $(CMAKE) SFML/CMakeLists.txt glfw/CMakeLists.txt $(SFML_LIB) $(GLFW_LIB) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(WARN_COLOR)Care! Shell level: $(SHLVL)"
-	@echo "$(OK_COLOR)Compiling executable...$(NO_COLOR)"
+	@printf "$(OK_COLOR)Compiling executable...$(NO_COLOR)\n"
 	@$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@echo "$(OK_COLOR)Compiling objects...$(NO_COLOR)"
+ifndef LD_LIBRARY_PATH
+	$(error Please run the lib_SMFL_set_path.sh script to set the needed environment variables before running make)
+endif
+	@printf "\n$(WARN_COLOR)Shell level: $(SHLVL)\n\n"
+	@printf "$(OK_COLOR)Compiling objects...$(NO_COLOR)\n"
 	@$(CXX) $< -o $@ -c $(INCFLAGS) $(CXXFLAGS)
 
 $(OBJDIR):
@@ -80,12 +83,12 @@ $(CMAKE):
 	$(BREW) install cmake
 
 SFML/CMakeLists.txt:
-	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
+	@printf "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
 	$(GIT) submodule init
 	$(GIT) submodule update
 
 glfw/CMakeLists.txt:
-	@echo "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
+	@printf "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
 	$(GIT) submodule init
 	$(GIT) submodule update
 
@@ -102,11 +105,13 @@ $(GLFW_LIB):
 	cd ..
 
 clean:
-	@echo "$(WARN_COLOR)"
+	@printf "$(WARN_COLOR)"
 	$(RM) -rf $(OBJDIR)
+	@printf "$(NO_COLOR)"
 
 fclean: clean
+	@printf "$(WARN_COLOR)"
 	$(RM) -f $(NAME)
-	@echo "$(NO_COLOR)"
+	@printf "$(NO_COLOR)"
 
 re: fclean all
