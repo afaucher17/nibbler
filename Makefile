@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/21 16:00:53 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/15 14:21:16 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/15 14:50:56 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,12 +39,13 @@ GLFW_LIB_DIR	= $(ROOT)/glfw
 GLFW_LIB		= $(GLFW_LIB_DIR)/src/libglfw3.a
 
 # lib_path
+NCURSES_LIB_P	= -lncurses
 SFML_LIB_P		= $(SFML_LIB_DIR)/lib -Wl,-rpath,$(SFML_LIB_DIR)/extlibs/libs-osx/lib -lsfml-graphics -lsfml-window -lsfml-system
 GLFW_LIB_P		= $(GLFW_LIB_DIR)/src -lglfw3 $(GLFW_FRAMEWORK)
 GLFW_FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -framework GLUT
 
 # compil flags
-LDFLAGS			= -L $(GLFW_LIB_P) -L $(SFML_LIB_P)
+LDFLAGS			= -L $(GLFW_LIB_P) -L $(SFML_LIB_P) $(NCURSES_LIB_P)
 INCFLAGS		= -I $(INCDIR) -I $(SFML_LIB_DIR)/include -I $(GLFW_LIB_DIR)/include -Wno-deprecated
 CXXFLAGS		= -Wall -Wextra -Werror
 
