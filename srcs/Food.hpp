@@ -10,8 +10,6 @@ class Food : public AGameObject
         virtual ~Food(void);
         Food &      operator=(Food const & rhs);
 
-        void        move() {};
-
     private:
         Food(void);
         type_e      _type;

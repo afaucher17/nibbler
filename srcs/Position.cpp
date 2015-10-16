@@ -48,6 +48,16 @@ Position        Position::operator+(Position const & rhs) const
     return Position(this->_x + rhs._x, this->_y + rhs._y);
 }
 
+bool            Position::operator==(Position const & rhs) const
+{
+    return (this->_x == rhs._x && this->_y == rhs._y);
+}
+
+bool            Position::operator!=(Position const & rhs) const
+{
+    return !(*this == rhs);
+}
+
 std::string     Position::toString() const
 {
     std::stringstream ss;

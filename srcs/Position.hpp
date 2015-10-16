@@ -18,6 +18,8 @@ class Position
         int                 getY() const;
         Position            move(Direction const & dir) const;
         Position            operator+(Position const & rhs) const;
+        bool                operator==(Position const & rhs) const;
+        bool                operator!=(Position const & rhs) const;
 
         std::string         toString() const;
 
