@@ -13,9 +13,9 @@ class AGameObject: public IGameObject
 
         Position const &        getPosition() const;
         Direction const &       getCurrentDirection() const;
-
-        virtual void            move() = 0;
         bool                    isToBeDeleted() const;
+
+        virtual bool            lethalCollision() const = 0;
 
         std::string             toString() const;
 

@@ -11,7 +11,6 @@ class Obstacle: public AGameObject
         virtual ~Obstacle(void);
         Obstacle &    operator=(Obstacle const & rhs);
 
-        void            move() {};
 };
 std::ostream & operator<<(std::ostream & o, Obstacle const & rhs);
 #endif
