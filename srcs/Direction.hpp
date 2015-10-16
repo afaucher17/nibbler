@@ -14,7 +14,9 @@ class Direction
         virtual ~Direction(void);
         Direction &    operator=(Direction const & rhs);
 
+        cardinal_e      getCardinal() const;
         Position        toPosition() const;
+        Direction       opposite() const;
 
         std::string     toString() const;
 

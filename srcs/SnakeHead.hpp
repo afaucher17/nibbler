@@ -1,10 +1,10 @@
 #ifndef SNAKEHEAD_HPP
 # define SNAKEHEAD_HPP
 # include <list>
-# include "AGameObject.hpp"
+# include "ASnake.hpp"
 # include "SnakeBody.hpp"
 
-class SnakeHead : public AGameObject
+class SnakeHead : public ASnake
 {
     public:
         SnakeHead(void);
@@ -13,18 +13,17 @@ class SnakeHead : public AGameObject
         virtual ~SnakeHead(void);
         SnakeHead &    operator=(SnakeHead const & rhs);
 
-        bool            move(std::list<AGameObject*> list);
-        bool            checkCollision(std::list<AGameObject*> list);
-        void            grow();
+        bool                move();
+        bool                checkCollision(std::list<AGameObject*> list);
+        bool                grow();
 
-        SnakeBody *     getNext() const;
-        bool            isDead() const;
+        ASnake *         getNext() const;
+        bool                isDead() const;
+        bool                isTail() const;
 
-        void            setDirection(Direction const & dir);
+        void                setDirection(Direction const & dir);
 
     private:
-        SnakeBody *     _next;
-        type_e          _type;
         bool            _dead;
 };
 

@@ -1,23 +1,23 @@
 #ifndef SNAKEBODY_HPP
 # define SNAKEBODY_HPP
+# include "ASnake.hpp"
 
-class SnakeBody: public ISnakeObject, public IGameObject
+class SnakeBody : public ASnake
 {
     public:
         SnakeBody(void);
-        SnakeHead(Position const pos, Direction const pos, e_type type);
+        SnakeBody(int x, int y, cardinal_e dir, type_e type, ASnake * previous);
         SnakeBody(SnakeBody const & src);
         virtual ~SnakeBody(void);
         SnakeBody &    operator=(SnakeBody const & rhs);
 
-        void            move();
-
-        ISnakeObject *  getPrevious() const;
-        ISnakeObject *  getNext() const;
+        bool                move();
+        bool                grow();
+        ASnake *            getPrevious() const;
+        ASnake *            getNext() const;
 
     private:
-        ISnakeObject *  _previous;
-        ISnakeObject *  _next;
+        ASnake *            _previous;
 };
 
 #endif

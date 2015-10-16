@@ -1,16 +1,16 @@
 #include "SnakeHead.hpp"
 
-SnakeHead::SnakeHead(void) : AGameObject()
+SnakeHead::SnakeHead(void) : ASnake()
 {
     return ;
 }
 
-SnakeHead::SnakeHead(int x, int y, cardinal_e dir, type_e type) : AGameObject(x, y, dir), _type(type), _next(NULL)
+SnakeHead::SnakeHead(int x, int y, cardinal_e dir, type_e type) : ASnake(x, y, dir, type)
 {
     return ;
 }
 
-SnakeHead::SnakeHead(SnakeHead const & src) : AGameObject(src)
+SnakeHead::SnakeHead(SnakeHead const & src) : ASnake(src)
 {
     return ;
 }
@@ -22,11 +22,9 @@ SnakeHead::~SnakeHead(void)
 
 SnakeHead &         SnakeHead::operator=(SnakeHead const & rhs)
 {
-    AGameObject::operator=(rhs);
-    this->_next = rhs._next;
+    ASnake::operator=(rhs);
     return *this;
 }
-
 
 bool                SnakeHead::checkCollision(std::list<AGameObject*> list)
 {
@@ -42,19 +40,27 @@ bool                SnakeHead::checkCollision(std::list<AGameObject*> list)
         return false ;
 }
 
-bool                SnakeHead::move(std::list<AGameObject*> list)
+bool                SnakeHead::grow()
 {
-    if (this->_pos.move(this->_dir) != this->getNext()->getPosition())
+    type_e tail_type;
+    if (this->isTail())
     {
-        this->_pos = this->_pos.move(this->_dir);
+        Position tail_pos = this->_pos.move(this->_dir.opposite());
+        if (this->_type == SNAKE_HEAD_1)
+            type_e tail_type = SNAKE_TAIL_1;
+        else
+            type_e tail_type = SNAKE_TAIL_2;
+        this->_next = new SnakeBody(tail_pos.getX(), tail_pos.getY(), this->_dir.getCardinal(), tail_type, this);
         return true ;
     }
-    return false ;
+    else
+        this->getNext()->grow();
+    return false;
 }
 
-SnakeBody *         SnakeHead::getNext() const
+bool                SnakeHead::isDead() const
 {
-    return this->_next;
+    return this->_dead;
 }
 
 void                SnakeHead::setDirection(Direction const & dir)
