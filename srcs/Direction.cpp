@@ -27,11 +27,21 @@ Direction &         Direction::operator=(Direction const & rhs)
     return *this;
 }
 
+cardinal_e          Direction::getCardinal() const
+{
+    return this->_dir;
+}
+
 Position            Direction::toPosition() const
 {
     Position pos_array[4] = { Position(0, 1), Position(1, 0), Position(-1, 0), Position(0, -1) };
 
     return pos_array[static_cast<int>(this->_dir)];
+}
+
+Direction           Direction::opposite() const
+{
+    return Direction(static_cast<cardinal_e>(3 - static_cast<int>(this->_dir)));
 }
 
 std::string         Direction::toString() const

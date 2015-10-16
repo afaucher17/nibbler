@@ -40,6 +40,11 @@ Direction const &       AGameObject::getCurrentDirection() const
     return _dir;
 }
 
+type_e const            AGameObject::getType() const
+{
+    return this->_type;
+}
+
 bool                    AGameObject::isToBeDeleted() const
 {
     return _to_be_deleted;
