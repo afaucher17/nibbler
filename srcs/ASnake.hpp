@@ -11,8 +11,6 @@ class ASnake : public AGameObject
         virtual ~ASnake(void);
         ASnake &    operator=(ASnake const & rhs);
 
-        virtual Direction const &   getOldDirection() const;
-
         virtual bool                move();
         virtual bool                grow(std::list<IGameObject*> list) = 0;
 

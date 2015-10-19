@@ -28,14 +28,6 @@ ASnake &            ASnake::operator=(ASnake const & rhs)
 }
 
 
-Direction const &   ASnake::getOldDirection() const
-{
-    if (this->isTail())
-        return this->_dir;
-    else
-        return this->getNext()->getCurrentDirection();
-}
-
 bool                ASnake::move()
 {
     if (this->isTail() || (this->_pos.move(this->_dir) != this->getNext()->getPosition()))
@@ -57,5 +49,3 @@ ASnake *            ASnake::getNext() const
 {
     return this->_next;
 }
-
-

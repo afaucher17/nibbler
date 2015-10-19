@@ -13,6 +13,8 @@ class SnakeHead : public ASnake
         virtual ~SnakeHead(void);
         SnakeHead &    operator=(SnakeHead const & rhs);
 
+        Direction           getCurrentDirection() const;
+
         bool                move();
         bool                checkCollision(std::list<IGameObject*> list);
         bool                grow(std::list<IGameObject*> lis);
