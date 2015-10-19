@@ -3,7 +3,7 @@
 # include "Position.hpp"
 # include <iostream>
 
-enum cardinal_e { NORTH = 0, EAST, WEST, SOUTH, NORTH-EAST, NORTH-WEST, SOUTH-EAST, SOUTH-WEST};
+enum cardinal_e { NORTH = 0, EAST, WEST, SOUTH, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST};
 class Position;
 class Direction
 {
