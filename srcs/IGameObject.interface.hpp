@@ -11,8 +11,8 @@ class IGameObject
     public:
         IGameObject(void);
         virtual ~IGameObject(void) {};
-        virtual Position const &        getPosition() const = 0;
-        virtual Direction const &       getCurrentDirection() const = 0;
+        virtual Position                getPosition() const = 0;
+        virtual Direction           getCurrentDirection() const = 0;
         virtual type_e                  getType() const = 0;
 
 };

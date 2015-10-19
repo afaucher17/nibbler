@@ -26,6 +26,11 @@ SnakeHead &         SnakeHead::operator=(SnakeHead const & rhs)
     return *this;
 }
 
+Direction           SnakeHead::getCurrentDirection() const
+{
+    return this->_dir;
+}
+
 bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
 {
         for (std::list<IGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
