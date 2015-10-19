@@ -6,7 +6,7 @@
 /*   By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/19 12:27:33 by tdieumeg          #+#    #+#             */
-/*   Updated: 2015/10/19 15:46:36 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2015/10/19 16:29:07 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,19 @@ static std::map<type_e, std::map<cardinal_e, char> >		_sprites =
 	{SNAKE_TAIL_2,{ {EAST, 205} }},
 	{SNAKE_TAIL_2,{ {WEST, 205} }},
 	{SNAKE_TAIL_2,{ {SOUTH, 186} }},
-	{OBSTACLE, {{NORTH, ' '}}},
-	{FOOD, {{NORTH, 'o'}}},
-	{UNKNOWN, {{NORTH, '?'}}}
+	{OBSTACLE, { {NORTH, ' '} }},
+	{FOOD, { {NORTH, 'o'} }},
+	{UNKNOWN, { {NORTH, '?'} }}
 };
 
 LibNcurses::LibNcurses(void)
 {
 	initscr();
 	start_color();
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_WHITE, COLOR_BLACK);
+	init_pair(1, COLOR_BLACK, COLOR_WHITE);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+	init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
 	cbreak();
 	refresh();
 	curs_set(0);
@@ -85,6 +86,11 @@ LibNcurses::LibNcurses(int height, int width, std::string winName)
 	refresh();
 	curs_set(0);
 	this->_window = newwin(height, width, 0, 0);
+	wattron(this->_window, COLOR_PAIR(1));
+	wborder(this->_window, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wattroff(this->_window, COLOR_PAIR(1));
+	wmove(this->_window, 0, ((width / 2) - (winName.length() / 2)));
+	wprintw(this->_window, "%s", winName.c_str());
 	keypad(this->_window, true);
 	return ;
 }
@@ -119,7 +125,17 @@ void				LibNcurses::display(std::list<IGameObject*> const game_objects)
 
 void				LibNcurses::display_score(std::list<int> const scores)
 {
-	(void)scores;
+	int				max_x;
+	int				max_y;
+	std::list<int>::const_iterator		it;
+
+	it = scores.begin();
+	getmaxyx(stdscr, max_y, max_x);
+	wmove(this->_window, max_y, 1);
+	wprintw(this->_window, "P1:%d", *it);
+	wmove(this->_window, max_y, (max_x - 7));
+	wprintw(this->_window, "P2:%d", *(++it));
+	wrefresh(this->_window);
 	return ;
 }
 
@@ -128,7 +144,7 @@ void				LibNcurses::_display_sprite(int const x, int const y, char const sprite,
 	int				pair;
 
 	pair = 1;
-	wmove(this->_window, x, y);
+	wmove(this->_window, y, x);
 	if (type == OBSTACLE)
 		pair = 1;
 	if (type == FOOD)
