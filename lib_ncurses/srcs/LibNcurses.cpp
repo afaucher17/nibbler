@@ -6,7 +6,7 @@
 /*   By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/19 12:27:33 by tdieumeg          #+#    #+#             */
-/*   Updated: 2015/10/19 16:29:07 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2015/10/19 16:35:50 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ LibNcurses &		LibNcurses::operator=(LibNcurses const & rhs)
 	return *this;
 }
 
+int					LibNcurses::keyhandler(void)
+{
+	return wgetch(this->_window);
+}
+
 void				LibNcurses::display(std::list<IGameObject*> const game_objects)
 {
 	std::list<IGameObject*>::const_iterator		obj;
@@ -164,4 +169,4 @@ void				LibNcurses::_terminate(void)
 	delwin(this->_window);
 	endwin();
 	return ;
-}
+

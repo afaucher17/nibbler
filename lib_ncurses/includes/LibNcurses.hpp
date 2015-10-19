@@ -6,7 +6,7 @@
 /*   By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/19 12:01:04 by tdieumeg          #+#    #+#             */
-/*   Updated: 2015/10/19 15:24:05 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2015/10/19 16:31:41 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class LibNcurses {
 
 	LibNcurses			&operator=(LibNcurses const & rhs);
 
+	int					keyhandler(void);
 	void				display(std::list<IGameObject*> const game_objects);
 	void				display_score(std::list<int> const scores);
 
