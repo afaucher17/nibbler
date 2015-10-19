@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/16 14:58:49 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/16 15:16:19 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/19 17:26:35 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,37 +25,36 @@ OK_COLOR		= \x1b[32;01m
 WARN_COLOR		= \x1b[33;01m
 
 # app name
-NAME			= lib_glfw.so
+NAME			= lib_ncurses.so
 
 # dir
 ROOT			= $(shell pwd)
 OBJDIR			= $(ROOT)/objs
 SRCDIR			= $(ROOT)/srcs
+PARENT_SRCDIR	= $(ROOT)/../srcs
 INCDIR			= $(ROOT)/includes
-GLFW_LIB_DIR	= $(ROOT)/glfw
+PARENT_INCDIR	= $(ROOT)/../srcs
 
 # lib compilation flags
-GLFW_LIB_P		= $(GLFW_LIB_DIR)/src -lglfw3 $(GLFW_FRAMEWORK)
-GLFW_FRAMEWORK	= -framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo -framework GLUT
+NCURSES_LIB_P	= -lncurses
 
 # general compilation flags
-LDFLAGS			= -L $(GLFW_LIB_P)
-INCFLAGS		= -I $(INCDIR) -I $(GLFW_LIB_DIR)/include
-CXXFLAGS		= -Wall -Wextra -Werror
+INCFLAGS		= -I $(INCDIR) -I $(PARENT_INCDIR)
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++11
 
 # source files
-SRC				=
+SRC				= LibNcurses.cpp
 
 # obj
 OBJS			= $(patsubst %.cpp, $(OBJDIR)/%.o, $(SRC))
 
 .PHONY: all clean fclean re
 
-all: $(CMAKE) glfw/CMakeLists.txt $(GLFW_LIB) $(OBJDIR) $(NAME)
+all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
 	@printf "$(OK_COLOR)Compiling executable...$(NO_COLOR)\n"
-	@$(CXX) -shared $^ -o $@ $(LDFLAGS)
+	@$(CXX) -shared $^ -o $@ $(NCURSES_LIB_P) $(PARENT_SRCDIR)/Position.cpp $(PARENT_SRCDIR)/Direction.cpp
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	@printf "$(OK_COLOR)Compiling objects...$(NO_COLOR)\n"
@@ -63,24 +62,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 
 $(OBJDIR):
 	@$(MKDIR) $@
-
-$(BREW):
-	/usr/local/bin/brew update
-
-$(CMAKE):
-	$(BREW) update
-	$(BREW) install cmake
-
-glfw/CMakeLists.txt:
-	@printf "$(OK_COLOR)Submodule initialization...$(NO_COLOR)"
-	$(GIT) submodule init
-	$(GIT) submodule update
-
-$(GLFW_LIB):
-	cd $(GLFW_LIB_DIR) && \
-	$(CMAKE) . && \
-	$(MAKE) && \
-	cd ..
 
 clean:
 	@printf "$(WARN_COLOR)"

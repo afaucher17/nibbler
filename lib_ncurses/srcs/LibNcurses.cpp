@@ -6,13 +6,13 @@
 /*   By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/10/19 12:27:33 by tdieumeg          #+#    #+#             */
-/*   Updated: 2015/10/19 16:35:50 by tdieumeg         ###   ########.fr       */
+/*   Updated: 2015/10/19 17:03:15 by tdieumeg         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "LibNcurses.hpp"
 
-static std::map<type_e, std::map<cardinal_e, char> >		_sprites =
+std::map<type_e, std::map<cardinal_e, char> >		LibNcurses::_sprites =
 {
 	{SNAKE_HEAD_1,{ {NORTH, '^'} }},
 	{SNAKE_HEAD_1,{ {EAST, '>'} }},
@@ -120,7 +120,7 @@ void				LibNcurses::display(std::list<IGameObject*> const game_objects)
 
 	werase(this->_window);
 	for (obj = game_objects.begin(); obj != game_objects.end(); obj++)
-		for (type = this->_sprites.begin(); type != this->_sprites.end(); type++)
+		for (type = LibNcurses::_sprites.begin(); type != LibNcurses::_sprites.end(); type++)
 			for (dir = type->second.begin(); dir != type->second.end(); dir++)
 				if (((*obj)->getType() == type->first) && ((*obj)->getCurrentDirection().getCardinal() == dir->first))
 					this->_display_sprite((*obj)->getPosition().getX(), (*obj)->getPosition().getY(), dir->second, (*obj)->getType());
@@ -169,4 +169,4 @@ void				LibNcurses::_terminate(void)
 	delwin(this->_window);
 	endwin();
 	return ;
-
+}
