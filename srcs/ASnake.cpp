@@ -36,11 +36,6 @@ Direction const &   ASnake::getOldDirection() const
         return this->getNext()->getCurrentDirection();
 }
 
-bool                ASnake::lethalCollision() const
-{
-    return true ;
-}
-
 bool                ASnake::move()
 {
     if (this->isTail() || (this->_pos.move(this->_dir) != this->getNext()->getPosition()))

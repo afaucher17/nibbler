@@ -16,8 +16,6 @@ class AGameObject: public IGameObject
         virtual bool                    isToBeDeleted() const;
         virtual type_e const    getType() const;
 
-        virtual bool            lethalCollision() const = 0;
-
         virtual std::string             toString() const;
 
     private:
