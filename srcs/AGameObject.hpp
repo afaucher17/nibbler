@@ -11,13 +11,14 @@ class AGameObject: public IGameObject
         virtual ~AGameObject(void);
         AGameObject &           operator=(AGameObject const & rhs);
 
-        Position const &        getPosition() const;
-        Direction const &       getCurrentDirection() const;
-        bool                    isToBeDeleted() const;
+        virtual Position const &        getPosition() const;
+        virtual Direction const &       getCurrentDirection() const;
+        virtual bool                    isToBeDeleted() const;
+        virtual type_e const    getType() const;
 
         virtual bool            lethalCollision() const = 0;
 
-        std::string             toString() const;
+        virtual std::string             toString() const;
 
     private:
         std::string             _typeToString(type_e const type) const;
