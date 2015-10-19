@@ -14,7 +14,7 @@ class SnakeHead : public ASnake
         SnakeHead &    operator=(SnakeHead const & rhs);
 
         bool                move();
-        bool                checkCollision(std::list<AGameObject*> list);
+        bool                checkCollision(std::list<IGameObject*> list);
         bool                grow();
 
         ASnake *         getNext() const;

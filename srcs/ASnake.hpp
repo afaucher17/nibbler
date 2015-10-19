@@ -12,7 +12,6 @@ class ASnake : public AGameObject
         ASnake &    operator=(ASnake const & rhs);
 
         virtual Direction const &   getOldDirection() const;
-        virtual bool                lethalCollision() const;
 
         virtual bool                move();
         virtual bool                grow() = 0;

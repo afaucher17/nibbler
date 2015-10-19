@@ -26,15 +26,15 @@ SnakeHead &         SnakeHead::operator=(SnakeHead const & rhs)
     return *this;
 }
 
-bool                SnakeHead::checkCollision(std::list<AGameObject*> list)
+bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
 {
-        for (std::list<AGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
+        for (std::list<IGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
             if ((this->_pos == (*it)->getPosition()))
             {
-                if ((*it)->lethalCollision())
-                    this->_dead = true;
-                else if ((*it)->getType() == FOOD)
+                if ((*it)->getType() == FOOD)
                     this->grow();
+                else
+                    this->_dead = true;
                 return true ;
             }
         return false ;
