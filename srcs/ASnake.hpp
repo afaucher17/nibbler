@@ -14,7 +14,7 @@ class ASnake : public AGameObject
         virtual Direction const &   getOldDirection() const;
 
         virtual bool                move();
-        virtual bool                grow() = 0;
+        virtual bool                grow(std::list<IGameObject*> list) = 0;
 
         virtual bool                isTail() const;
         virtual ASnake *            getNext() const;

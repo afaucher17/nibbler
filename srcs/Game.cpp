@@ -42,13 +42,13 @@ void                            Game::init()
 void                            Game::move()
 {
     for (std::list<Player>::iterator it = this->_players.begin(); it != this->_players.end(); ++it)
-        it->move(this->getObjectList());
+        it->move();
 }
 
-void                            Game::checkCollisions()
+void                            Game::checkCollision()
 {
     for (std::list<Player>::iterator it = this->_players.begin(); it != this->_players.end(); ++it)
-        it->checkCollisions(this->getObjectList());
+        it->checkCollision(this->getObjectList());
 }
 
 std::list<IGameObject*>         Game::getObjectList(void) const

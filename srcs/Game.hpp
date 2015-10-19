@@ -14,7 +14,7 @@ class Game
 
         void init();
         void move();
-        void checkCollisions();
+        void checkCollision();
 
         std::list<IGameObject*>     getObjectList() const;
         int                         getWidth() const;
