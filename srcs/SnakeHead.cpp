@@ -32,7 +32,7 @@ bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
             if ((this->_pos == (*it)->getPosition()))
             {
                 if ((*it)->getType() == FOOD)
-                    this->grow();
+                    this->grow(list);
                 else
                     this->_dead = true;
                 return true ;
@@ -40,7 +40,7 @@ bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
         return false ;
 }
 
-bool                SnakeHead::grow()
+bool                SnakeHead::grow(std::list<IGameObject*> list)
 {
     type_e tail_type;
     if (this->isTail())
@@ -51,10 +51,11 @@ bool                SnakeHead::grow()
         else
             type_e tail_type = SNAKE_TAIL_2;
         this->_next = new SnakeBody(tail_pos.getX(), tail_pos.getY(), this->_dir.getCardinal(), tail_type, this);
+        list.push_back(this->_next);
         return true ;
     }
     else
-        this->getNext()->grow();
+        this->getNext()->grow(list);
     return false;
 }
 

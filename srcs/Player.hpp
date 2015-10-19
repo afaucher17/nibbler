@@ -7,18 +7,20 @@ class Game;
 class Player
 {
     public:
-        Player(void);
+        Player(int x, int y, cardinal_e dir, type_e type, std::list<IGameObject*> list);
         Player(Player const & src);
         virtual ~Player(void);
         Player &    operator=(Player const & rhs);
 
+        void        move();
+        void        checkCollision(std::list<IGameObject*> object_list);
+
         int         getScore() const;
-        void        move(std::list<IGameObject*> object_list);
-        void        checkCollisions(std::list<IGameObject*> object_list);
 
     private:
-        SnakeHead   _snakehead;
-        int         score;
+        Player(void);
+        SnakeHead   _snake_head;
+        int         _score;
 };
 
 #endif

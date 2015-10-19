@@ -15,16 +15,16 @@ class SnakeHead : public ASnake
 
         bool                move();
         bool                checkCollision(std::list<IGameObject*> list);
-        bool                grow();
+        bool                grow(std::list<IGameObject*> lis);
 
-        ASnake *         getNext() const;
+        ASnake *            getNext() const;
         bool                isDead() const;
         bool                isTail() const;
 
         void                setDirection(Direction const & dir);
 
     private:
-        bool            _dead;
+        bool                _dead;
 };
 
 #endif
