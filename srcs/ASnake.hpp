@@ -1,6 +1,7 @@
 #ifndef ASNAKE_HPP
 # define ASNAKE_HPP
 #include "AGameObject.hpp"
+#include <list>
 
 class ASnake : public AGameObject
 {

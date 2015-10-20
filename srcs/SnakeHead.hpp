@@ -15,9 +15,8 @@ class SnakeHead : public ASnake
 
         Direction           getCurrentDirection() const;
 
-        bool                move();
+        bool                grow(std::list<IGameObject*> list);
         bool                checkCollision(std::list<IGameObject*> list);
-        bool                grow(std::list<IGameObject*> lis);
 
         ASnake *            getNext() const;
         bool                isDead() const;

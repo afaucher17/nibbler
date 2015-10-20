@@ -30,17 +30,17 @@ AGameObject &           AGameObject::operator=(AGameObject const & rhs)
     return *this;
 }
 
-Position const &        AGameObject::getPosition() const
+Position                AGameObject::getPosition() const
 {
     return _pos;
 }
 
-Direction const &       AGameObject::getCurrentDirection() const
+Direction               AGameObject::getCurrentDirection() const
 {
     return _dir;
 }
 
-type_e const            AGameObject::getType() const
+type_e                  AGameObject::getType() const
 {
     return this->_type;
 }

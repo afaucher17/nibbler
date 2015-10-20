@@ -31,6 +31,26 @@ Direction           SnakeHead::getCurrentDirection() const
     return this->_dir;
 }
 
+bool                SnakeHead::grow(std::list<IGameObject*> list)
+{
+    type_e          tail_type;
+
+    if (this->isTail())
+    {
+        Position tail_pos = this->_pos.move(this->_dir.opposite());
+        if (this->_type == SNAKE_HEAD_1)
+            type_e tail_type = SNAKE_TAIL_1;
+        else
+            type_e tail_tye = SNAKE_TAIL_2;
+        this->_next = new SnakeBody(tail_pos.getX(), tail_pos.getY(), this->_dir.getCardinal(), tail_type, this);
+        list.push_back(this->_next);
+        return true ;
+    }
+    else
+        this->getNext()->grow(list);
+    return false ;
+}
+
 bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
 {
         for (std::list<IGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
@@ -43,25 +63,6 @@ bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
                 return true ;
             }
         return false ;
-}
-
-bool                SnakeHead::grow(std::list<IGameObject*> list)
-{
-    type_e tail_type;
-    if (this->isTail())
-    {
-        Position tail_pos = this->_pos.move(this->_dir.opposite());
-        if (this->_type == SNAKE_HEAD_1)
-            type_e tail_type = SNAKE_TAIL_1;
-        else
-            type_e tail_type = SNAKE_TAIL_2;
-        this->_next = new SnakeBody(tail_pos.getX(), tail_pos.getY(), this->_dir.getCardinal(), tail_type, this);
-        list.push_back(this->_next);
-        return true ;
-    }
-    else
-        this->getNext()->grow(list);
-    return false;
 }
 
 bool                SnakeHead::isDead() const
