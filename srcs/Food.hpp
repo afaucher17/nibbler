@@ -5,7 +5,7 @@
 class Food : public AGameObject
 {
     public:
-        Food(int x, int y, cardinal_e dir);
+        Food(int x, int y);
         Food(Food const & src);
         virtual ~Food(void);
         Food &      operator=(Food const & rhs);

@@ -5,7 +5,7 @@ Food::Food(void) : AGameObject(), _type(FOOD)
     return ;
 }
 
-Food::Food(int x, int y, cardinal_e dir) : AGameObject(x, y, dir), _type(FOOD)
+Food::Food(int x, int y) : AGameObject(x, y, NORTH), _type(FOOD)
 {
     return ;
 }
