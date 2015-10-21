@@ -6,7 +6,7 @@
 #    By: tdieumeg <tdieumeg@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/10/16 14:58:49 by tdieumeg          #+#    #+#              #
-#    Updated: 2015/10/19 17:26:35 by tdieumeg         ###   ########.fr        #
+#    Updated: 2015/10/20 17:56:23 by tdieumeg         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ NCURSES_LIB_P	= -lncurses
 
 # general compilation flags
 INCFLAGS		= -I $(INCDIR) -I $(PARENT_INCDIR)
-CXXFLAGS		= -Wall -Wextra -Werror -std=c++11
+CXXFLAGS		= -Wall -Wextra -Werror -std=c++11 -fPIC
 
 # source files
 SRC				= LibNcurses.cpp
