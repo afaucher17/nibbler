@@ -13,6 +13,5 @@ class IGameObject
         virtual Position				getPosition() const = 0;
         virtual Direction				getCurrentDirection() const = 0;
         virtual type_e                  getType() const = 0;
-
 };
 #endif

@@ -2,8 +2,9 @@
 # define DIRECTION_HPP
 # include "Position.hpp"
 # include <iostream>
+# include <map>
 
-enum cardinal_e { NORTH = 0, EAST, WEST, SOUTH, NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST };
+enum cardinal_e {NORTH = 1, EAST = 3, WEST = 7, SOUTH = 15, NORTH_EAST = 4, NORTH_WEST = 8, SOUTH_EAST = 10, SOUTH_WEST = 22};
 class Position;
 class Direction
 {
@@ -12,7 +13,8 @@ class Direction
         Direction(cardinal_e const cardinal);
         Direction(Direction const & src);
         virtual ~Direction(void);
-        Direction &    operator=(Direction const & rhs);
+        Direction &     operator=(Direction const & rhs);
+        Direction       operator+(Direction const & rhs) const;
 
         cardinal_e      getCardinal() const;
         Position        toPosition() const;

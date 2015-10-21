@@ -1,6 +1,7 @@
 #ifndef ASNAKE_HPP
 # define ASNAKE_HPP
 #include "AGameObject.hpp"
+#include <list>
 
 class ASnake : public AGameObject
 {
@@ -12,7 +13,7 @@ class ASnake : public AGameObject
         ASnake &    operator=(ASnake const & rhs);
 
         virtual bool                move();
-        virtual bool                grow(std::list<IGameObject*> list) = 0;
+        virtual bool                grow(std::list<IGameObject*> & list) = 0;
 
         virtual bool                isTail() const;
         virtual ASnake *            getNext() const;

@@ -9,10 +9,10 @@ class SnakeBody : public ASnake
         SnakeBody(int x, int y, cardinal_e dir, type_e type, ASnake * previous);
         SnakeBody(SnakeBody const & src);
         virtual ~SnakeBody(void);
-        SnakeBody &    operator=(SnakeBody const & rhs);
-
+        SnakeBody &         operator=(SnakeBody const & rhs);
+        Direction           getCurrentDirection() const;
         bool                move();
-        bool                grow();
+        bool                grow(std::list<IGameObject*> & list);
         ASnake *            getPrevious() const;
         ASnake *            getNext() const;
 

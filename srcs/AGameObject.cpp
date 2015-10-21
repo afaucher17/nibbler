@@ -30,17 +30,22 @@ AGameObject &           AGameObject::operator=(AGameObject const & rhs)
     return *this;
 }
 
-Position const &        AGameObject::getPosition() const
+Position                AGameObject::getPosition() const
 {
     return _pos;
 }
 
-Direction const &       AGameObject::getCurrentDirection() const
+Direction               AGameObject::getCurrentDirection() const
 {
     return _dir;
 }
 
-type_e const            AGameObject::getType() const
+Direction               AGameObject::getSavedDirection() const
+{
+    return _dir;
+}
+
+type_e                  AGameObject::getType() const
 {
     return this->_type;
 }
@@ -71,5 +76,3 @@ std::ostream &          operator<<(std::ostream & o, AGameObject const & rhs)
     o << rhs.toString();
     return o;
 }
-
-
