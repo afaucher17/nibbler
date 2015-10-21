@@ -40,6 +40,11 @@ Direction               AGameObject::getCurrentDirection() const
     return _dir;
 }
 
+Direction               AGameObject::getSavedDirection() const
+{
+    return _dir;
+}
+
 type_e                  AGameObject::getType() const
 {
     return this->_type;
@@ -71,5 +76,3 @@ std::ostream &          operator<<(std::ostream & o, AGameObject const & rhs)
     o << rhs.toString();
     return o;
 }
-
-

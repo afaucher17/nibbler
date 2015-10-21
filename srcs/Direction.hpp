@@ -13,8 +13,8 @@ class Direction
         Direction(cardinal_e const cardinal);
         Direction(Direction const & src);
         virtual ~Direction(void);
-        Direction &    operator=(Direction const & rhs);
-        Direction &     operator+(Direction const & rhs);
+        Direction &     operator=(Direction const & rhs);
+        Direction       operator+(Direction const & rhs) const;
 
         cardinal_e      getCardinal() const;
         Position        toPosition() const;

@@ -1,7 +1,8 @@
 #include "Player.hpp"
 
-Player::Player(int x, int y, cardinal_e dir, type_e type, std::list<IGameObject*> list): _snake_head(SnakeHead(x, y, dir, type)), _score(0)
+Player::Player(int x, int y, cardinal_e dir, type_e type, std::list<IGameObject*> & list): _snake_head(SnakeHead(x, y, dir, type)), _score(0)
 {
+    list.push_back(&this->_snake_head);
     return ;
 }
 

@@ -31,7 +31,7 @@ Direction           SnakeHead::getCurrentDirection() const
     return this->_dir;
 }
 
-bool                SnakeHead::grow(std::list<IGameObject*> list)
+bool                SnakeHead::grow(std::list<IGameObject*> & list)
 {
     type_e          tail_type;
 
@@ -39,9 +39,9 @@ bool                SnakeHead::grow(std::list<IGameObject*> list)
     {
         Position tail_pos = this->_pos.move(this->_dir.opposite());
         if (this->_type == SNAKE_HEAD_1)
-            type_e tail_type = SNAKE_TAIL_1;
+            tail_type = SNAKE_TAIL_1;
         else
-            type_e tail_tye = SNAKE_TAIL_2;
+            tail_type = SNAKE_TAIL_2;
         this->_next = new SnakeBody(tail_pos.getX(), tail_pos.getY(), this->_dir.getCardinal(), tail_type, this);
         list.push_back(this->_next);
         return true ;

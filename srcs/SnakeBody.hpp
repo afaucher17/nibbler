@@ -12,7 +12,7 @@ class SnakeBody : public ASnake
         SnakeBody &         operator=(SnakeBody const & rhs);
         Direction           getCurrentDirection() const;
         bool                move();
-        bool                grow(std::list<IGameObject*> list);
+        bool                grow(std::list<IGameObject*> & list);
         ASnake *            getPrevious() const;
         ASnake *            getNext() const;
 

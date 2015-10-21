@@ -12,6 +12,7 @@ class AGameObject: public IGameObject
         AGameObject &                   operator=(AGameObject const & rhs);
 
         virtual Direction               getCurrentDirection() const;
+        virtual Direction               getSavedDirection() const;
         virtual Position                getPosition() const;
         virtual bool                    isToBeDeleted() const;
         virtual type_e                  getType() const;

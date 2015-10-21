@@ -30,11 +30,15 @@ SnakeBody &         SnakeBody::operator=(SnakeBody const & rhs)
 
 Direction           SnakeBody::getCurrentDirection() const
 {
+    int             ndir = static_cast<int>(this->getPrevious()->getSavedDirection().getCardinal());
+    int             adir = static_cast<int>(this->_dir.getCardinal());
 
-    int             adir = static_cast<int>(this->getPrevious()->_dir.getCardinal());
-    int             ndir = static_cast<int>(this->_dir.getCardinal());
-
-    if (this->getPrevious()->_dir.getCardinal() == NORTH || this->getPrevious()->_dir.getCardinal() == )
+    if (adir == ndir)
+        return this->_dir;
+    else if ((this->_dir.getCardinal() == NORTH && this->getPrevious()->getSavedDirection().getCardinal() == WEST) || (adir > ndir))
+        return Direction((this->_dir + this->getPrevious()->getSavedDirection()));
+    else
+        return Direction((this->_dir.opposite() + this->getPrevious()->getSavedDirection().opposite()));
 }
 
 bool                SnakeBody::move()
@@ -47,10 +51,8 @@ bool                SnakeBody::move()
     return false;
 }
 
-bool                SnakeBody::grow(std::list<IGameObject*> list)
+bool                SnakeBody::grow(std::list<IGameObject*> & list)
 {
-    type_e          tail_type;
-
     if (this->isTail())
     {
         Position tail_pos = this->_pos.move(this->_dir.opposite());

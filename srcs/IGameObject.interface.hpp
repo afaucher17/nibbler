@@ -9,11 +9,9 @@ enum type_e { SNAKE_HEAD_1 = 0, SNAKE_BODY_1, SNAKE_TAIL_1, SNAKE_HEAD_2, SNAKE_
 class IGameObject
 {
     public:
-        IGameObject(void);
         virtual ~IGameObject(void) {};
         virtual Position                getPosition() const = 0;
-        virtual Direction           getCurrentDirection() const = 0;
+        virtual Direction               getCurrentDirection() const = 0;
         virtual type_e                  getType() const = 0;
-
 };
 #endif

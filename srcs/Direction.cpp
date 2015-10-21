@@ -27,6 +27,11 @@ Direction &         Direction::operator=(Direction const & rhs)
     return *this;
 }
 
+Direction           Direction::operator+(Direction const & rhs) const
+{
+    return Direction(static_cast<cardinal_e>(static_cast<int>(this->_dir) + static_cast<int>(rhs._dir)));
+}
+
 cardinal_e          Direction::getCardinal() const
 {
     return this->_dir;
