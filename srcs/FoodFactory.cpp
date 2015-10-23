@@ -1,15 +1,16 @@
 #include "FoodFactory.hpp"
 
-bool                    FoodFactory::randomSpawn(std::list<IGameObject*> & list, int height, int width)
+Food                    FoodFactory::randomSpawn(std::vector<Position> av_positions)
 {
     std::random_device  rd;
     std::mt19937        gen(rd());
-    std::uniform_int_distribution<> randomh(0, height);
-    std::uniform_int_distribution<> randomw(0, width);
-    Food                            food(randomw(gen), randomh(gen));
+    std::uniform_int_distribution<> randomw(0, av_positions.size() - 1);
 
-    for (int i = 0; i < 10000; i++)
-    {
-        <`4:/* code */`>
-    }
+
+    return (Food(av_positions[randomw(gen)]));
+}
+
+Food                    FoodFactory::spawnAtPos(Position pos)
+{
+    return (Food(pos));
 }

@@ -7,6 +7,7 @@ class Food : public AGameObject
     public:
         Food(void);
         Food(int x, int y);
+        Food(Position pos);
         Food(Food const & src);
         virtual ~Food(void);
         Food &      operator=(Food const & rhs);

@@ -1,14 +1,14 @@
 #ifndef FOODFACTORY_HPP
 # define FOODFACTORY_HPP
-# include <list>
+# include <vector>
 # include <random>
 # include "Food.hpp"
 
 class FoodFactory
 {
     public:
-        static Food &           randomSpawn(std::list<IGameObject*> & list, int height, int width);
-        static Food &           spawnAtPos(std::list<IGameObject*> list, int height, int width, Position pos);
+        static Food             randomSpawn(std::vector<Position> av_positions);
+        static Food             spawnAtPos(Position pos);
 
     private:
         FoodFactory(void);
