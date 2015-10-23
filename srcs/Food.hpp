@@ -5,13 +5,13 @@
 class Food : public AGameObject
 {
     public:
+        Food(void);
         Food(int x, int y);
         Food(Food const & src);
         virtual ~Food(void);
         Food &      operator=(Food const & rhs);
 
     private:
-        Food(void);
         type_e      _type;
 
 };

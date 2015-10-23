@@ -51,18 +51,23 @@ bool                SnakeHead::grow(std::list<IGameObject*> & list)
     return false ;
 }
 
-bool                SnakeHead::checkCollision(std::list<IGameObject*> list)
+bool                SnakeHead::checkCollision(std::list<IGameObject*> & list, int height, int width)
 {
-        for (std::list<IGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
-            if ((this->_pos == (*it)->getPosition()))
-            {
-                if ((*it)->getType() == FOOD)
-                    this->grow(list);
-                else
-                    this->_dead = true;
-                return true ;
-            }
-        return false ;
+    for (std::list<IGameObject*>::iterator it = list.begin(); it != list.end(); ++it)
+        if ((this->_pos == (*it)->getPosition()))
+        {
+            if ((*it)->getType() == FOOD)
+                return this->grow(list);
+            else
+                this->_dead = true;
+            return true ;
+        }
+    if (this->_pos.outOfBounds(height, width))
+    {
+        this->_dead = true;
+        return true;
+    }
+    return false ;
 }
 
 bool                SnakeHead::isDead() const

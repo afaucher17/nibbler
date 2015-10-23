@@ -4,6 +4,7 @@
 # include "Game.hpp"
 
 class Game;
+class SnakeHead;
 class Player
 {
     public:
@@ -13,7 +14,7 @@ class Player
         Player &    operator=(Player const & rhs);
 
         void        move();
-        void        checkCollision(std::list<IGameObject*> & object_list);
+        void        checkCollision(Game & game);
 
         int         getScore() const;
 

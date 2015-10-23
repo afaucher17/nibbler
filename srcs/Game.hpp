@@ -3,7 +3,6 @@
 # include "AGameObject.hpp"
 # include "Player.hpp"
 
-class Player;
 class Game
 {
     public:
@@ -16,7 +15,7 @@ class Game
         void move();
         void checkCollision();
 
-        std::list<IGameObject*>     getObjectList() const;
+        std::list<IGameObject*> &   getObjectList();
         int                         getWidth() const;
         int                         getHeight() const;
         std::list<int>              getScores() const;

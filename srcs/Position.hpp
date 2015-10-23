@@ -16,7 +16,10 @@ class Position
 
         int                 getX() const;
         int                 getY() const;
+
         Position            move(Direction const & dir) const;
+        bool                outOfBounds(int height, int width) const;
+
         Position            operator+(Position const & rhs) const;
         bool                operator==(Position const & rhs) const;
         bool                operator!=(Position const & rhs) const;

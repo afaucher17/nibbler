@@ -29,9 +29,9 @@ void                Player::move()
     this->_snake_head.move();
 }
 
-void                Player::checkCollision(std::list<IGameObject*> object_list)
+void                Player::checkCollision(Game & game)
 {
-    this->_snake_head.checkCollision(object_list);
+    this->_snake_head.checkCollision(game);
 }
 
 int                 Player::getScore() const

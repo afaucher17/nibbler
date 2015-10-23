@@ -48,10 +48,10 @@ void                            Game::move()
 void                            Game::checkCollision()
 {
     for (std::list<Player>::iterator it = this->_players.begin(); it != this->_players.end(); ++it)
-        it->checkCollision(this->getObjectList());
+        it->checkCollision(*this);
 }
 
-std::list<IGameObject*>         Game::getObjectList(void) const
+std::list<IGameObject*> &       Game::getObjectList(void)
 {
     return this->_object_list;
 }

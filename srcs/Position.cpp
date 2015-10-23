@@ -43,6 +43,11 @@ Position        Position::move(Direction const & dir) const
     return ((*this) + dir.toPosition());
 }
 
+bool            Position::outOfBounds(int height, int width) const
+{
+    return (this->_x < 0 || this->_x >= width || this->_y < 0 || this->_y >= height);
+}
+
 Position        Position::operator+(Position const & rhs) const
 {
     return Position(this->_x + rhs._x, this->_y + rhs._y);
