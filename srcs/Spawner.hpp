@@ -4,11 +4,16 @@
 # include <random>
 # include "IGameObject.interface.hpp"
 
-class Spawner
+class GameObjectFactory
 {
     public:
-        static IGameObject          randomSpawn(std::vector<Position> av_positions, type_e type);
-        static IGameObject          spawnAtPos(Position pos, type_e type);
+        static Food                 createRandomFood(std::vector<Position> av_positions);
+        static Food                 createFood(Position pos);
+        static Obstacle             createRandomObstacle(std::vector<Position> av_positions);
+        static Obstacle             createObstacle(Position pos);
+        static SnakeHead            createRandomSnakeHead(std::vector<Position> av_positions);
+        static SnakeHead            createSnakeHead(Position pos, cardinal_e dir);
+        static SnakeBody            createSnakeBody(Position pos, cardinal_e dir, type_e type, ASnake * previous)
 
     private:
         Spawner();
@@ -16,13 +21,7 @@ class Spawner
         virtual ~Spawner(void);
         Spawner &    operator=(Spawner const & rhs);
 
-        static IGameObject          _createIGameObject(Position pos, type_e type);
-        static IGameObject          _createFood(Position pos, type_e type);
-        static IGameObject          _createObstacle(Position pos, type_e, type);
-        static IGameObject          _createSnakeHead(Position pos, type_e type);
-        static IGameObject          _createSnakeBody(Position pos, type_e type);
-
+        static Position             _randomSpawn(std::vector<Position> av_positions);
 };
-typedef IGameObject (Spawner::*f)(Position pos, type_e type);
 
 #endif

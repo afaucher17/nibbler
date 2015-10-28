@@ -1,34 +1,45 @@
 #include "Spawner.hpp"
 
-IGameObject             Spawner::randomSpawn(std::vector<Position> av_positions, type_e type)
+Position                Spawner::_randomSpawn(std::vector<Position> av_positions, type_e type)
 {
     std::random_device  rd;
     std::mt19937        gen(rd());
     std::uniform_int_distribution<>     random_pos(0, av_positions.size() - 1);
 
-    return (Spawner::spawnAtPos(av_positions[random_pos(gen)], type));
+    return (av_positions[random_pos(gen)]);
 }
 
-IGameObject             Spawner::spawnAtPos(Position pos, type_e type)
+Food                    Spawner::createRandomFood(std::vector<Position> av_positions)
 {
-    return (Spawner::_createIGameObject(pos, type));
+    return Food(Spawner::_randomSpawn(av_positions));
 }
 
-IGameObject             Spawner::_createIGameObject(Position pos, type_e type)
+Food                    Spawner::createFood(Position pos)
 {
-    std::map<type_e, f> fun_map =
-    {
-        { FOOD, &_createFood },
-        { OBSTACLE, &_createObstacle },
-        { SNAKE_HEAD_1, &_createSnakeHead },
-        { SNAKE_HEAD_2, &_createSnakeHead },
-        { SNAKE_BODY_1, &_createSnakeBody },
-        { SNAKE_BODY_2, &_createSnakeBody },
-        { SNAKE_TAIL_1, &_createSnakeBody },
-        { SNAKE_TAIL_2, &_createSnakeBody }
-    };
-    std::map<type_e, f>::const_iterator it = fun_map.find(type);
-    
-    if (it != fun_map.end())
-        return (it(pos, type));
+    return Food(pos);
+}
+
+Obstacle                Spawner::createRandomObstacle(std::vector<Position> av_positions)
+{
+    return Obstacle(Spawner::_randomSpawn(av_positions));
+}
+
+Obstacle                Spawner::createObstacle(Position pos)
+{
+    return Obstacle(pos);
+}
+
+SnakeHead               Spawner::createRandomSnakeHead(std::vector<Position> av_positions)
+{
+    return SnakeHead(Spawner::_randomSpawn(av_positions));
+}
+
+SnakeHead               Spawner::createSnakeHead(Position pos, cardinal_e dir)
+{
+    return SnakeHead(pos, dir);
+}
+
+SnakeBody               Spawner::createSnakeBody(Position pos, cardinal_e dir, type_e type, ASnake * previous)
+{
+    return SnakeBody(pos, dir, type, previous);
 }
